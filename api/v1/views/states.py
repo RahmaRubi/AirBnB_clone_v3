@@ -13,10 +13,11 @@ import uuid
 def list_states():
     '''list states'''
     states = storage.all("State").values()
-    objs_dicts =[]
+    objs_dicts = []
     for i in states:
         objs_dicts.append(i.to_dict())
     return (jsonify(objs_dicts))
+
 
 @app_views.route('/states/<state_id>')
 def get_state(state_id):
@@ -25,6 +26,7 @@ def get_state(state_id):
     if obj is None:
         abort(404)
     return (jsonify(objs_dicts))
+
 
 @app_views.route('/states/<state_id>', methods=['DELETE'])
 def delete_state(state_id):
