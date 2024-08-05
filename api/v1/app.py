@@ -16,11 +16,13 @@ def teardown(self):
     """handle @app.teardown_appcontext that calls close()"""
     storage.close()
 
+
 @app.errorhandler(404)
 def err404(error):
     """handler for 404 errors that returns a JSON-formatted 404 status"""
     error404 = {'error': 'Not found'}
     return make_response(jsonify(error404), 404)
+
 
 if __name__ == "__main__":
     host = os.getenv('HBNB_API_HOST', '0.0.0.0')
