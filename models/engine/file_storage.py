@@ -66,12 +66,13 @@ class FileStorage:
                 del self.__objects[key]
 
     def get(self, cls, id):
-        import models
         """Returns the object based on the class and its ID, or None"""
-        key = cls.__name__ + '.' + id
-        if key in models.storage.all():
-            return (models.storage.all()[key])
-        return None
+        if cls is None or id is None:
+            return None
+        key = f"{cls.__name__}.{id}"
+        all_objects = storage.all(cls)
+
+        return all_objects.get(key, None)
 
     def count(self, cls=None):
         """number of objects in storage matching the given class"""
