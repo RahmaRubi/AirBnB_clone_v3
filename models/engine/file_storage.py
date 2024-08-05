@@ -54,8 +54,8 @@ class FileStorage:
             with open(self.__file_path, 'r') as f:
                 jo = json.load(f)
             for key in jo:
-                self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except:
+                self.__objects[key] = classes[jo[key]['__class__']](**jo[key])
+        except Exception:
             pass
 
     def delete(self, obj=None):
@@ -64,7 +64,7 @@ class FileStorage:
             key = obj.__class__.__name__ + '.' + obj.id
             if key in self.__objects:
                 del self.__objects[key]
-    
+
     def get(self, cls, id):
         import models
         """Returns the object based on the class and its ID, or None"""
