@@ -68,7 +68,7 @@ class FileStorage:
     def get(self, cls, id):
         import models
         """Returns the object based on the class and its ID, or None"""
-        key = cls + '.' + id
+        key = cls.__name__ + '.' + id
         if key in models.storage.all():
             return (models.storage.all()[key])
         return None
