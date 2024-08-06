@@ -2,17 +2,16 @@
 """
 states routes
 """
-
 from api.v1.views import app_views
 from flask import jsonify, abort, request
-from models import storage
 from models.state import State
+from models import storage
 import uuid
 
 
-@app_views.route('/states', strict_slashes=False)
+@app_views.route('/states')
 def list_states():
-    '''list of all State objects'''
+    '''list states'''
     states = storage.all("State").values()
     objs_dicts = []
     for i in states:
@@ -22,16 +21,16 @@ def list_states():
 
 @app_views.route('/states/<state_id>')
 def get_state(state_id):
-    '''State object'''
+    '''state object'''
     obj = storage.get("State", state_id)
     if obj is None:
         abort(404)
-    return (jsonify(obj.to_dict()))
+    return (jsonify(objs_dicts))
 
 
 @app_views.route('/states/<state_id>', methods=['DELETE'])
 def delete_state(state_id):
-    '''Delete'''
+    '''delete'''
     obj = storage.get("State", state_id)
     if obj is None:
         abort(404)
@@ -42,7 +41,7 @@ def delete_state(state_id):
 
 @app_views.route('/states/', methods=['POST'])
 def create_state():
-    '''Creates a State'''
+    '''creates a state'''
     data = request.get_json()
     if not data:
         abort(400, 'Not a JSON')
@@ -56,7 +55,7 @@ def create_state():
 
 @app_views.route('/states/<state_id>', methods=['PUT'])
 def updates_state(state_id):
-    '''Updates'''
+    '''updates'''
     obj = storage.get("State", state_id)
     if not obj:
         abort(404)
