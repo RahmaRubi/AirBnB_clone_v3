@@ -7,21 +7,21 @@ import os
 from flask_cors import CORS
 
 app = Flask(__name__)
-
 cors = CORS(app, resources={r"/api/*": {"origins": "0.0.0.0"}})
+
+
 app.url_map.strict_slashes = False
 app.register_blueprint(app_views)
 
 
 @app.teardown_appcontext
 def teardown(self):
-    """handle @app.teardown_appcontext that calls close()"""
+    """method to closes storage engine"""
     storage.close()
 
 
 @app.errorhandler(404)
 def err404(error):
-    """handler for 404 errors that returns a JSON-formatted 404 status"""
     error404 = {'error': 'Not found'}
     return make_response(jsonify(error404), 404)
 
