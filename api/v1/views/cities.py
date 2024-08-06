@@ -47,3 +47,19 @@ def get_city(city_id):
     if not obj:
         abort(404)
     return (jsonify(obj.to_dict()))
+
+
+@app_views.route('/cities/<city_id>', methods=['PUT'])
+def update(city_id):
+    '''Updates'''
+    obj = storage.get("City", city_id)
+    if not obj:
+        abort(404)
+    if not request.get_json():
+        abort(400, 'Not a JSON')
+    request_data = request.get_json()
+    if 'name' not in request_data:
+        abort(400, 'Missing name')
+    obj.name = request_data['name']
+    storage.save()
+    return (jsonify(obj.to_dict()), 200)
