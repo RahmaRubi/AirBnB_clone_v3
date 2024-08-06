@@ -3,6 +3,7 @@
 Same as State, create a new view for City objects
 """
 
+
 @app_views.route('/states/<state_id>/cities/')
 def list_cities_of_state(state_id):
     '''cities objects'''
